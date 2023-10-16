@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import LogoIcon from "../img/Logo.svg";
+import { formatFileName, sanitizeHtmlContent } from '../utils/format';
+import DocumentForm from './DocumentForm/DocumentForm';
+import PageHeader from './PageHeader/PageHeader';
 import './TemplatePage.css';
 
 const TemplatePage = () => {
   const location = useLocation();
-  const { htmlContent, fieldRequirements } = location.state || {};
+  const { htmlContent, fieldRequirements, fileName } = location.state || {};
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [iin, setIIN] = useState('');
+
+  const capitalizedFileName = formatFileName(fileName);
+  const sanitizedHtmlContent = sanitizeHtmlContent(htmlContent);
 
   const findFieldRequirement = (fieldName: string) => {
     return fieldRequirements.find((field: any) => field.name === fieldName) || {};
@@ -37,35 +42,38 @@ const TemplatePage = () => {
   const minIIN = hasMinIIN ? iinField.attrs.min : undefined;
   const isNumericIIN = iinField.attrs.numeric || false;
 
-  const updatedHtmlContent = htmlContent
+    const updatedHtmlContent = sanitizedHtmlContent
     .replace('Фамилия', `${lastName || 'Фамилия'}`)
     .replace('Имя', `${firstName || 'Имя'}`)
     .replace('ИИН', `${iin || 'ИИН'}`);
 
-
   return (
     <div className='template-page'>
-      <div className='page-header'>
-        <img src={LogoIcon} alt="Logo" />
-        <p></p>
-      </div>
-      <div className='form-group'>
+      <PageHeader capitalizedFileName={capitalizedFileName} />
+      {/* <div className='page-header'>
+        <img src={LogoIcon} alt="Logo" className='logo'/>
+        <p className='document-name'>{ capitalizedFileName }</p>
+      </div> */}
+
+      {/* <div className='document-form'>
         <div
           className='webpage-preview'
           dangerouslySetInnerHTML={{ __html: updatedHtmlContent }}
         >
         </div>
-      </div>
-      <div className='input-forms'>
+      </div> */}
+      <DocumentForm updatedHtmlContent={updatedHtmlContent} />
+      <div className='side-bar'>
         <div className='input-info'>
-          <h3>Пожалуйста, заполните данные</h3>
-          <p>После заполнения и отправки формы будет создан документ с введенными данными.</p>
+          <h3 className='side-bar-title'>Пожалуйста, заполните данные</h3>
+          <p className='side-bar-text'>После заполнения и отправки формы будет создан документ с введенными данными.</p>
         </div>
         <div className='inputs'>
-          <p>Фамилия</p>
+          <p className='inputs-label'>Фамилия</p>
           <input
             type='text'
             value={lastName}
+            className='inputs-width'
             onChange={(e) => setLastName(e.target.value)}
             required={isRequiredLastName}
             maxLength={maxLastName}
@@ -73,10 +81,11 @@ const TemplatePage = () => {
           />
         </div>
         <div className='inputs'>
-          <p>Имя</p>
+          <p className='inputs-label'>Имя</p>
           <input
             type='text'
             value={firstName}
+            className='inputs-width'
             onChange={(e) => setFirstName(e.target.value)}
             required={isRequiredFirstName}
             maxLength={maxFirstName}
@@ -84,9 +93,10 @@ const TemplatePage = () => {
           />
         </div>
         <div className='inputs'>
-          <p>ИИН</p>
+          <p className='inputs-label'>ИИН</p>
           <input type='text'
             value={iin}
+            className='inputs-width'
             onChange={(e) => {
               if (!isNumericIIN || /^\d*$/.test(e.target.value)) {
                 setIIN(e.target.value);
