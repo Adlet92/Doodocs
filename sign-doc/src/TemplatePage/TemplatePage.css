@@ -1,0 +1,9 @@
+.template-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.input-forms {
+  width: 50%;
+  margin-left: 24px;
+}
