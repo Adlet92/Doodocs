@@ -5,7 +5,7 @@ import "./PageNotFound.css";
 const PageNotFound: React.FC = () => {
   const navigate = useNavigate();
 
-const handleBackToSearch = () => {
+const handleBackToMain = () => {
     navigate(routes.main);
   };
 
@@ -14,8 +14,8 @@ const handleBackToSearch = () => {
       <div className="notFound-container">
         <div className="title-404">404</div>
         <div className="page-not-found">Page not found</div>
-        <button className="back-button" onClick={handleBackToSearch}>
-          Back to Search
+        <button className="back-button" onClick={handleBackToMain}>
+          Back to Main
         </button>
       </div>
     </>

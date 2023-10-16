@@ -1,24 +1,34 @@
-// SideBar.js
+import { SidebarProps } from '../../types/types';
+import InputFields from './InputFields';
+import InputInfo from './InputInfo';
 
-import InputField from './InputField';
-
-const SideBar = ({
-  fieldRequirements,
+const Sidebar: React.FC<SidebarProps> = ({
   lastName,
-  setLastName,
   firstName,
-  setFirstName,
   iin,
+  setLastName,
+  setFirstName,
   setIIN,
+  iinProperties,
+  lastNameProperties,
+  firstNameProperties,
 }) => {
   return (
-    <div className="side-bar">
-      {/* ... other components ... */}
-      <InputField label="Фамилия" value={lastName} onChange={setLastName} />
-      <InputField label="Имя" value={firstName} onChange={setFirstName} />
-      <InputField label="ИИН" value={iin} onChange={setIIN} />
+    <div className='side-bar'>
+      <InputInfo />
+      <InputFields
+        lastName={lastName}
+        firstName={firstName}
+        iin={iin}
+        setLastName={setLastName}
+        setFirstName={setFirstName}
+        setIIN={setIIN}
+        iinProperties={iinProperties}
+        lastNameProperties={lastNameProperties}
+        firstNameProperties={firstNameProperties}
+      />
     </div>
   );
-};
+}
 
-export default SideBar;
+export default Sidebar;

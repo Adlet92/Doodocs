@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UploadIcon from "../img/fileUpload.svg";
-import InsertIcon from "../img/insert.svg";
+import Button from './Button/Button';
+import FileUpload from './FileUpload/FileUpload';
+import JsonInput from './JsonInput/JsonInput';
 import './MainPage.css';
 
 const MainPage = () => {
@@ -41,10 +42,10 @@ const MainPage = () => {
     event.stopPropagation();
   };
 
-
   const handleJsonInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setJsonInput(event.target.value);
   };
+
   const handleDeleteButton = () => {
     setFile(null);
   };
@@ -65,60 +66,13 @@ const MainPage = () => {
     navigate('/doc', { state });
   };
 
+  const isActive = !!file && jsonInput.trim() !== '';
+
   return (
     <div className='app'>
-      <div
-        className='drop-area'
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-      >
-        <div className='drag-drop-area'>
-        {file ? (
-            <>
-              <img src={InsertIcon} alt="Insert File" />
-              <p className="centered-text">{file.name}</p>
-              <div className="button-group">
-                <button
-                  className="delete-button"
-                  onClick={handleDeleteButton}
-                >
-                  Удалить
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <label htmlFor="file-loader-button" className="file-uploader__upload-label">
-                <img src={UploadIcon} alt="Upload File" />
-              </label>
-                <input
-                  id="file-loader-button"
-                  type="file"
-                  className="file-uploader__upload-button"
-                  onChange={handleOnChange}
-              />
-              <p className="centered-text">Выберите файл или перенесите его сюда</p>
-            </>
-          )}
-        </div>
-      </div>
-      <div className='form-group'>
-        <textarea
-          className='textarea-form'
-          value={jsonInput}
-          onChange={handleJsonInputChange}
-          ></textarea>
-      </div>
-      <div className='button-area'>
-        <button
-          className={`button-next${file ? ' active' : ''}`}
-          disabled={!file}
-          onClick={handleNextButtonClick}
-        >
-          Далее
-        </button>
-      </div>
+      <FileUpload file={file} onFileDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onFileChange={handleOnChange} onFileDelete={handleDeleteButton } />
+      <JsonInput jsonInput={jsonInput} onJsonInputChange={handleJsonInputChange} />
+      <Button isActive={isActive} onClick={handleNextButtonClick} disabled={!file} />
     </div>
   );
 }
