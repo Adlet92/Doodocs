@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../utils/routes';
+import Loading from '../Loading/Loading';
 import Button from './Button/Button';
 import FileUpload from './FileUpload/FileUpload';
 import JsonInput from './JsonInput/JsonInput';
@@ -10,6 +11,7 @@ const MainPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileURL, setFileURL] = useState<string | null>(null);
   const [jsonInput, setJsonInput] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const fileReader = new FileReader();
   fileReader.onloadend = () => {
@@ -52,11 +54,13 @@ const MainPage = () => {
   };
 
   const handleNextButtonClick = () => {
+    setIsLoading(true);
     let fieldRequirements;
     try {
       fieldRequirements = JSON.parse(jsonInput);
     } catch (error) {
       alert('Invalid JSON format. Please enter a valid JSON array.');
+      setIsLoading(false);
       return;
     }
     const state = {
@@ -72,16 +76,27 @@ const MainPage = () => {
 
   return (
     <div className='app'>
-      <FileUpload
-        file={file}
-        onFileDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onFileChange={handleOnChange}
-        onFileDelete={handleDeleteButton}
-      />
-      <JsonInput jsonInput={jsonInput} onJsonInputChange={handleJsonInputChange} />
-      <Button isActive={isActive} onClick={handleNextButtonClick} disabled={!file} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+          <>
+            <FileUpload
+              file={file}
+              onFileDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onFileChange={handleOnChange}
+              onFileDelete={handleDeleteButton}
+            />
+            <JsonInput
+              jsonInput={jsonInput}
+              onJsonInputChange={handleJsonInputChange} />
+            <Button
+              isActive={isActive}
+              onClick={handleNextButtonClick}
+              disabled={!file} />
+        </>
+      )}
     </div>
   );
 }
