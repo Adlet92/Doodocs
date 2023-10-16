@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import useFieldRequirements from '../utils/fieldRequirements';
-import { formatFileName, sanitizeHtmlContent } from '../utils/format';
+import useFieldRequirements from '../../utils/fieldRequirements';
+import { formatFileName, sanitizeHtmlContent } from '../../utils/format';
 import DocumentForm from './DocumentForm/DocumentForm';
 import PageHeader from './PageHeader/PageHeader';
 import Sidebar from './SideBar/SideBar';
@@ -18,9 +18,9 @@ const TemplatePage = () => {
   const [firstName, setFirstName] = useState('');
   const [iin, setIIN] = useState('');
 
+  const { getFieldProperties } = useFieldRequirements(fieldRequirements);
   const capitalizedFileName = formatFileName(fileName);
   const sanitizedHtmlContent = sanitizeHtmlContent(htmlContent);
-  const { getFieldProperties } = useFieldRequirements(fieldRequirements);
 
   const lastNameProperties = getFieldProperties(LAST_NAME_FIELD);
   const firstNameProperties = getFieldProperties(FIRST_NAME_FIELD);

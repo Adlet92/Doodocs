@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import MainPage from './MainPage/MainPage';
-import PageNotFound from './PageNotFound/PageNotFound';
-import TemplatePage from './TemplatePage/TemplatePage';
+import MainPage from './components/MainPage/MainPage';
+import PageNotFound from './components/PageNotFound/PageNotFound';
+import TemplatePage from './components/TemplatePage/TemplatePage';
 
 const App = () => {
   return (

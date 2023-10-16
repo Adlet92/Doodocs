@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../../utils/routes';
 import Button from './Button/Button';
 import FileUpload from './FileUpload/FileUpload';
 import JsonInput from './JsonInput/JsonInput';
@@ -29,7 +30,7 @@ const MainPage = () => {
     if (event.dataTransfer.files && event.dataTransfer.files.length) {
       const file = event.dataTransfer.files[0];
       setFile(file);
-      fileReader.readAsDataURL(file);
+      fileReader.readAsText(file, 'utf-8');
     }
   };
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -63,14 +64,22 @@ const MainPage = () => {
       fieldRequirements: fieldRequirements,
       fileName: file?.name || null
     };
-    navigate('/doc', { state });
+    navigate(routes.template, { state });
   };
+
 
   const isActive = !!file && jsonInput.trim() !== '';
 
   return (
     <div className='app'>
-      <FileUpload file={file} onFileDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onFileChange={handleOnChange} onFileDelete={handleDeleteButton } />
+      <FileUpload
+        file={file}
+        onFileDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onFileChange={handleOnChange}
+        onFileDelete={handleDeleteButton}
+      />
       <JsonInput jsonInput={jsonInput} onJsonInputChange={handleJsonInputChange} />
       <Button isActive={isActive} onClick={handleNextButtonClick} disabled={!file} />
     </div>

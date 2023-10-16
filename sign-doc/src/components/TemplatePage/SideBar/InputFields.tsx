@@ -1,4 +1,4 @@
-import { SidebarProps } from "../../types/types";
+import { SidebarProps } from "../../../types/types";
 
 const InputFields: React.FC<SidebarProps> = ({
   lastName,

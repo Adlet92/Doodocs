@@ -1,4 +1,4 @@
-import { SidebarProps } from '../../types/types';
+import { SidebarProps } from '../../../types/types';
 import InputFields from './InputFields';
 import InputInfo from './InputInfo';
 
