@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import MainPage from './components/MainPage/MainPage';
-import PageNotFound from './components/PageNotFound/PageNotFound';
 import TemplatePage from './components/TemplatePage/TemplatePage';
 
 const App = () => {
@@ -10,12 +9,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/doc" element={<TemplatePage />} />
-        <Route
+        {/* <Route
           path="*"
           element={
             <PageNotFound />
             }
-          />
+          /> */}
         </Routes>
     </div>
   );
