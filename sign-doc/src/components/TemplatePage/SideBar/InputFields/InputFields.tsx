@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SidebarProps } from "../../../../types/types";
 import "./InputFields.css";
 
@@ -13,33 +14,43 @@ const InputFields: React.FC<SidebarProps> = ({
   firstNameProperties,
 }) => {
 
+  const [lastNameError, setLastNameError] = useState(false);
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [iinError, setIINError] = useState(false);
+
+  const handleBlur = (value: string, inputProperties: any, setError: (error: boolean) => void) => {
+    setError(
+      (inputProperties.isRequired && value.trim().length === 0) ||
+      (inputProperties.hasMin && value.trim().length < inputProperties.min)
+    );
+  };
+
+
   return (
     <>
-      <div className='inputs'>
+       <div className={`inputs ${lastNameError ? 'inputs-error' : ''}`}>
         <p className='inputs-label'>Фамилия</p>
         <input
           type='text'
           value={lastName}
           className='inputs-width'
           onChange={(e) => setLastName(e.target.value)}
-          required={lastNameProperties.isRequired}
+          onBlur={() => handleBlur(lastName, lastNameProperties, setLastNameError)}
           maxLength={lastNameProperties.max}
-          minLength={lastNameProperties.min}
         />
       </div>
-      <div className='inputs'>
+      <div className={`inputs ${firstNameError ? 'inputs-error' : ''}`}>
         <p className='inputs-label'>Имя</p>
         <input
           type='text'
           value={firstName}
           className='inputs-width'
           onChange={(e) => setFirstName(e.target.value)}
-          required={firstNameProperties.isRequired}
+          onBlur={() => handleBlur(firstName, firstNameProperties, setFirstNameError)}
           maxLength={firstNameProperties.max}
-          minLength={firstNameProperties.min}
         />
       </div>
-      <div className='inputs'>
+      <div className={`inputs ${iinError ? 'inputs-error' : ''}`}>
         <p className='inputs-label'>ИИН</p>
         <input
           type='text'
@@ -50,9 +61,8 @@ const InputFields: React.FC<SidebarProps> = ({
               setIIN(e.target.value);
             }
           }}
-          required={iinProperties.isRequired}
+          onBlur={() => handleBlur(iin, iinProperties, setIINError)}
           maxLength={iinProperties.max}
-          minLength={iinProperties.min}
           pattern={iinProperties.isNumeric ? '\\d*' : undefined}
         />
       </div>
