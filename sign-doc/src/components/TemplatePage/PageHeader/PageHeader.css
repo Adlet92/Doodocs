@@ -1,0 +1,21 @@
+.page-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 0;
+  position: absolute;
+  padding: 16px;
+}
+
+.logo {
+  height: 24px;
+  width: 130px;
+}
+
+.document-name {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin-left: 4px;
+}

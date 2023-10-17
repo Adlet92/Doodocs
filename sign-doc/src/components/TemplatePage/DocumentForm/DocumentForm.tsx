@@ -1,4 +1,4 @@
-
+import "./DocumentForm.css";
 
 const DocumentForm = ({ updatedHtmlContent }: { updatedHtmlContent: string }) => (
   <div className="document-form">

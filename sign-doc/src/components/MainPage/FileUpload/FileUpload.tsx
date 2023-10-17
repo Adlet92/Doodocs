@@ -1,5 +1,6 @@
 import UploadIcon from "../../img/fileUpload.svg";
 import InsertIcon from "../../img/insert.svg";
+import "./FileUpload.css";
 
 interface FileUploadProps {
   file: File | null;

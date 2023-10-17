@@ -1,0 +1,21 @@
+.button-area{
+  width: 800px;
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  margin-top: 16px;
+}
+.button-next{
+  width: 68px;
+  height: 32px;
+  opacity: 40%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+.active{
+  background: linear-gradient(0deg, #0085FF, #0085FF),
+linear-gradient(0deg, #1272CC, #1272CC);
+  border: 1px solid #1272CC;
+  color: #FFFFFF;
+}

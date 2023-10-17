@@ -1,3 +1,4 @@
+import "./InputInfo.css";
 
 const InputInfo = () => {
   return (

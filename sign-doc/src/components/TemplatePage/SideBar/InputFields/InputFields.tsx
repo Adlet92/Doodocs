@@ -1,4 +1,5 @@
-import { SidebarProps } from "../../../types/types";
+import { SidebarProps } from "../../../../types/types";
+import "./InputFields.css";
 
 const InputFields: React.FC<SidebarProps> = ({
   lastName,
@@ -11,6 +12,7 @@ const InputFields: React.FC<SidebarProps> = ({
   lastNameProperties,
   firstNameProperties,
 }) => {
+
   return (
     <>
       <div className='inputs'>

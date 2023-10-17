@@ -1,4 +1,5 @@
 import LogoIcon from "../../img/Logo.svg";
+import "./PageHeader.css";
 
 interface PageHeaderProps {
   capitalizedFileName: string;
